@@ -1,0 +1,30 @@
+version: '3.9'
+
+networks:
+  net:
+    external: true
+    name: MY_NETWORK_NAME
+
+services:
+  wiki:
+    container_name: MY_WIKI_CONTAINER
+    image: 'usdo-ahead/mediawiki:MY_WIKI_IMAGE_TAG'
+    ports:
+      - 'MY_WIKI_BIND_IP:MY_WIKI_BIND_PORT:80'
+    environment:
+      SERVER_NAME: MY_SERVER_NAME
+    networks:
+      net:
+        ipv4_address: 'MY_WIKI_IP'
+  db:
+    container_name: MY_DB_CONTAINER
+    image: 'usdo-ahead/postgres:latest'
+    environment:
+      POSTGRES_PASSWORD: 'MY_DB_ADMIN_PASSWORD'
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - 'MY_DB_DATA_DIR:/var/lib/postgresql/data:rw'
+      - 'MY_DB_INIT_DIR:/docker-entrypoint-initdb.d:ro'
+    networks:
+      net:
+        ipv4_address: 'MY_DB_IP'
