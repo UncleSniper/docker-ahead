@@ -12,7 +12,9 @@ RUN set -ex \
 	&& echo php_admin_flag display_errors off >>/etc/apache2/mods-available/php7.4.conf \
 	&& rm /var/www/html/index.html \
 	&& mv /var/www/html/mediawiki-*.*.*/* /var/www/html \
-	&& rmdir /var/www/html/mediawiki-*.*.*
+	&& rmdir /var/www/html/mediawiki-*.*.* \
+	&& find /etc/apache2 -type f -iname '*.conf' | xargs sed -i 's/AllowOverride None/AllowOverride All/g' \
+	&& ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled
 
 ADD launch.sh /launch.sh
 
