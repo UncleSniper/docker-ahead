@@ -7,7 +7,7 @@ RUN set -ex \
 	&& DEBIAN_FRONTEND=noninteractive apt-get upgrade -y --with-new-pkgs \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
 		apache2 php7.4 libapache2-mod-php7.4 php7.4-gd imagemagick php7.4-pgsql php7.4-opcache php7.4-intl \
-		php7.4-mbstring php7.4-xml php7.4-apcu git \
+		php7.4-mbstring php7.4-xml php7.4-apcu git wget \
 	&& rm -r /var/lib/apt/lists/* \
 	&& echo php_admin_flag display_errors off >>/etc/apache2/mods-available/php7.4.conf \
 	&& rm /var/www/html/index.html \
